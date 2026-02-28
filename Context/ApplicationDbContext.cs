@@ -11,6 +11,7 @@ namespace HotelApp.Context
         public DbSet<Models.Room> Rooms { get; set; }
         public DbSet<Models.Booking> Bookings { get; set; }
 
+
         public ApplicationDbContext()
         {
         }
