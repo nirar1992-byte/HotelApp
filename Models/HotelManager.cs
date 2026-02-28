@@ -3,8 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HotelApp.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace HotelApp.Models
+namespace HotelApp.Context
 {
     public class HotelManager
     {
