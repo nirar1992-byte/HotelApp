@@ -45,7 +45,7 @@ namespace HotelApp.Models
         public bool IsOverlapping(DateTime start, DateTime end)
         {
             // Returnerar true om bokningarna överlappar, annars false
-            return (start & lt; EndDate & amp; &amp; end & gt; StartDate);
+            return (start < EndDate && end > StartDate);
         }
 
     }
