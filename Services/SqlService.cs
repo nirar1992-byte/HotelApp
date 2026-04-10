@@ -5,7 +5,7 @@ namespace HotelApp.Services
 {
     public class SqlService
     {
-        private string connectionString = "Server=(localdb)\\mssqllocaldb;Database=HotelDb;Trusted_Connection=True;";
+        public string connectionString = "Server=(localdb)\\mssqllocaldb;Database=HotelDb;Trusted_Connection=True;";
 
         // 1. Hämta alla rum
         public void GetAllRooms()
@@ -21,7 +21,7 @@ namespace HotelApp.Services
 
                 while (reader.Read())
                 {
-                    Console.WriteLine($"Room ID: {reader["Id"]}");
+                    Console.WriteLine($"Room ID: {reader["RoomId"]}");
                 }
             }
         }
@@ -40,7 +40,7 @@ namespace HotelApp.Services
 
                 while (reader.Read())
                 {
-                    Console.WriteLine($"Available Room ID: {reader["Id"]}");
+                    Console.WriteLine($"Available Room ID: {reader["RoomId"]}");
                 }
             }
         }
@@ -61,7 +61,7 @@ namespace HotelApp.Services
             }
         }
 
-        // 4. JOIN (bonus – visar högre nivå)
+        // 4. JOIN mellan Rooms och Bookings
         public void GetRoomBookings()
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -69,9 +69,9 @@ namespace HotelApp.Services
                 conn.Open();
 
                 string query = @"
-                    SELECT Rooms.Id AS RoomId, Bookings.Id AS BookingId
+                    SELECT Rooms.RoomId, Bookings.BookingId
                     FROM Rooms
-                    JOIN Bookings ON Rooms.Id = Bookings.RoomId";
+                    JOIN Bookings ON Rooms.RoomId = Bookings.RoomId";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -79,6 +79,25 @@ namespace HotelApp.Services
                 while (reader.Read())
                 {
                     Console.WriteLine($"Room: {reader["RoomId"]}, Booking: {reader["BookingId"]}");
+                }
+            }
+        }
+
+        // 5. ORDER BY 
+        public void GetRoomsOrdered()
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                string query = "SELECT * FROM Rooms ORDER BY RoomName ASC";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Console.WriteLine($"Room: {reader["RoomName"]}");
                 }
             }
         }

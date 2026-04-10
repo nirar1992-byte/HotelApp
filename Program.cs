@@ -33,14 +33,13 @@ namespace HotelApp
             // Skapa HotelManager
             HotelManager hotelManager = new HotelManager(dbContext);
 
-            // LÄGG TILL DETTA BLOCK HÄR
             var sqlService = new SqlService();
 
             sqlService.GetAllRooms();
             sqlService.GetAvailableRooms();
             sqlService.CountRooms();
             sqlService.GetRoomBookings();
-            // SLUT PÅ DITT TILLÄGG
+            sqlService.GetRoomsOrdered();
 
             bool runProgram = true;
 
